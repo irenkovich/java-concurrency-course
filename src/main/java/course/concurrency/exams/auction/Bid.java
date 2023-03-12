@@ -1,9 +1,9 @@
 package course.concurrency.exams.auction;
 
 public class Bid {
-    private Long id; // ID заявки
-    private Long participantId; // ID участника
-    private Long price; // предложенная цена
+    private final Long id; // ID заявки
+    private final Long participantId; // ID участника
+    private final Long price; // предложенная цена
 
     public Bid(Long id, Long participantId, Long price) {
         this.id = id;
