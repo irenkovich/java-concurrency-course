@@ -1,11 +1,14 @@
 package course.concurrency.exams.auction;
 
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class Notifier {
     private static final int AVAILABLE_PROCS = Runtime.getRuntime().availableProcessors();
-    private final Executor executor = new ThreadPoolExecutor(
-            AVAILABLE_PROCS, AVAILABLE_PROCS, 0L, TimeUnit.SECONDS, new LinkedBlockingQueue<>(50000), new ThreadPoolExecutor.DiscardOldestPolicy());
+    private final ThreadPoolExecutor executor = new ThreadPoolExecutor(
+            AVAILABLE_PROCS, AVAILABLE_PROCS, 10L, TimeUnit.SECONDS, new LinkedBlockingQueue<>(Integer.MAX_VALUE), new ThreadPoolExecutor.DiscardOldestPolicy());
     public void sendOutdatedMessage(Bid bid) {
         CompletableFuture.runAsync(this::imitateSending, executor);
     }
@@ -19,5 +22,6 @@ public class Notifier {
     }
 
     public void shutdown() {
+        executor.shutdownNow();
     }
 }
