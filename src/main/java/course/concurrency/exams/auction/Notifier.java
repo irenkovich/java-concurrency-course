@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class Notifier {
     private static final int AVAILABLE_PROCS = Runtime.getRuntime().availableProcessors();
     private final ThreadPoolExecutor executor = new ThreadPoolExecutor(
-            AVAILABLE_PROCS, AVAILABLE_PROCS, 10L, TimeUnit.SECONDS, new LinkedBlockingQueue<>(Integer.MAX_VALUE), new ThreadPoolExecutor.DiscardOldestPolicy());
+            AVAILABLE_PROCS, Integer.MAX_VALUE, 10L, TimeUnit.SECONDS, new LinkedBlockingQueue<>(Integer.MAX_VALUE), new ThreadPoolExecutor.DiscardOldestPolicy());
     public void sendOutdatedMessage(Bid bid) {
         CompletableFuture.runAsync(this::imitateSending, executor);
     }

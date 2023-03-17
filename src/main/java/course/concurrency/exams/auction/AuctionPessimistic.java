@@ -4,7 +4,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class AuctionPessimistic implements Auction {
 
-    private Notifier notifier;
+    private final Notifier notifier;
     private volatile Bid latestBid;
 
     private final ReentrantLock lock = new ReentrantLock();
