@@ -58,7 +58,7 @@ public final class Order {
         return paymentInfo;
     }
 
-    public Order setPaymentInfo(PaymentInfo paymentInfo) {
+    public Order withPaymentInfo(PaymentInfo paymentInfo) {
         return new Order(this, paymentInfo);
     }
 
@@ -66,7 +66,7 @@ public final class Order {
         return isPacked;
     }
 
-    public Order setPacked(boolean packed) {
+    public Order withPacked(boolean packed) {
         return new Order(this, packed);
     }
 
@@ -74,7 +74,7 @@ public final class Order {
         return status;
     }
 
-    public Order setStatus(Status status) {
+    public Order withStatus(Status status) {
         return new Order(this, status);
     }
 }

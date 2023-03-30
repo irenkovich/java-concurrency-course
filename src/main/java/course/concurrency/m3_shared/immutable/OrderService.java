@@ -23,7 +23,7 @@ public class OrderService {
 
     public void updatePaymentInfo(long orderId, PaymentInfo paymentInfo) {
         int id = getIndexFromBufferById(orderId);
-        Order updated = ordersBuffer.updateAndGet(id, oldValue -> oldValue.setPaymentInfo(paymentInfo));
+        Order updated = ordersBuffer.updateAndGet(id, oldValue -> oldValue.withPaymentInfo(paymentInfo));
         if (updated.checkStatus()) {
             deliver(updated);
         }
@@ -31,14 +31,14 @@ public class OrderService {
 
     public void setPacked(long orderId) {
         int id = getIndexFromBufferById(orderId);
-        Order updated = ordersBuffer.updateAndGet(id, oldValue -> oldValue.setPacked(true));
+        Order updated = ordersBuffer.updateAndGet(id, oldValue -> oldValue.withPacked(true));
         if (updated.checkStatus()) {
             deliver(updated);
         }
     }
 
     private void deliver(Order order) {
-        ordersBuffer.set(getIndexFromBufferById(order.getId()), order.setStatus(Order.Status.DELIVERED));
+        ordersBuffer.set(getIndexFromBufferById(order.getId()), order.withStatus(Order.Status.DELIVERED));
     }
 
     public boolean isDelivered(long orderId) {
